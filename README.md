@@ -37,3 +37,9 @@ new PenthousePlugin({
  height: 200,
 }),
 ```
+
+#### Why do I not see a .critical.css file generated for my entry point? ####
+
+If you use the commonsChunkPlugin with a low minChunks setting you may find all the scss modules in your entry point have been extracted to a commons css file. 
+
+If this is the case the css file that Penthouse would have used to generate the critical.css will not exist so no file will be created. 

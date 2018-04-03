@@ -20,7 +20,7 @@ PenthousePlugin.prototype.apply = function (compiler) {
 
     compilation.hooks.additionalAssets.tapAsync('PenthousePlugin', (callback) => {
 
-      Promise.all(compilation.chunks.map(async (chunk) => {
+      Promise.all( compilation.chunks.map( async (chunk) => {
 
         // an entry url matching the chunk name is required to continue
 
@@ -32,7 +32,7 @@ PenthousePlugin.prototype.apply = function (compiler) {
 
         // if no css file return
         if (!compilation.assets[cssFile] || !compilation.assets[cssFile].source()) {
-          console.log(`${entryUrl} no css for ${cssFile} `, compilation.assets[cssFile].source());
+          console.log(`${entryUrl} no css for ${cssFile} `);
           return;
         }
 
