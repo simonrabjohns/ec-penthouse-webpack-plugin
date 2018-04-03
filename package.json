@@ -1,0 +1,11 @@
+{
+  "name": "ec-penthouse-webpack-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Extreme Creations",
+  "license": "ISC",
+  "devDependencies": {
+    "penthouse": "^1.4.1",
+    "webpack-sources": "^1.1.0"
+  }
+}
