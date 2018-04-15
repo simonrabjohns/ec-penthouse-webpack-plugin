@@ -38,11 +38,21 @@ PenthousePlugin.prototype.apply = function (compiler) {
 
         try {
 
+          // construct a css string from the common assets passed in the options
+
+          cssCommonString = '';
+          for(let commonCss of self.options.commonCss){
+            cssCommonString += compilation.assets[commonCss].source();
+          }
+
+          // add generic and reset css content
+          const cssString = cssCommonString + compilation.assets[cssFile].source();
+
           // call penthouse with the entry point url and the css source for the entry point
 
           const criticalCss = await penthouse({
             url: entryUrl,
-            cssString: compilation.assets[cssFile].source(),
+            cssString: cssString,
             height: self.options.height,
           });
 
@@ -71,4 +81,3 @@ PenthousePlugin.prototype.apply = function (compiler) {
 };
 
 module.exports = PenthousePlugin;
-
