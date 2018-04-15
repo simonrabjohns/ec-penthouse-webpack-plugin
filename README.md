@@ -15,6 +15,11 @@ The PenthousePlugin only needs to called for production build so it is only inlc
 
 #####Plugin Arguments #####
 
+`commonCss`
+
+An array of paths to css files that should be considered when generating the critical css in a addition to the entry point chunk.
+This can be useful when the commonsChunk plugin removes modules from teh entry point but you still want them to be included in the critical css.
+
 `entryUrls` 
 
 An object which maps entry points to a URL that will be analysed to generate the critical css. The keys used must match the name of a valid entry point. 
@@ -30,6 +35,10 @@ If the entire html content fits within the height specified no critical css file
 Example config:
 ```
 new PenthousePlugin({
+commonCss: [
+        'resources/stylesheets/reset.bundle.css',
+        'resources/stylesheets/commons.bundle.css',
+      ],
  entryUrls: {
    app: 'http://boilerplate.local',
    page: 'http://boilerplate.local/critical-css-demo.html',
