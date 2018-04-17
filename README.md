@@ -26,11 +26,15 @@ An object which maps entry points to a URL that will be analysed to generate the
 Once the CSS has been compiled for the entry point Penthouse will analyse the URL and work out which CSS rules are required to render the above the fold content.
 These rules will then be written to a new css asset named [chunk].critical.css.
 
-`height`
+`height and width`
 
-Height can optionally be passed to restrict the critical css to elements that appear within the portion of the page up to the height specified
+Height and width values override the default 1300 x 900 viewport and restrict the critical css to elements that appear within the portion of the page up to the sizes specified
 
-If the entire html content fits within the height specified no critical css file is generated.
+If the entire html content fits within the size specified no critical css file is generated.
+
+`keepLargerMediaQueries`
+
+By default Penthouse will exclude media queries that do not apply within the defined height and width. Setting this to true will include all media queries related to the elements within the critical viewport.
 
 Example config:
 ```
@@ -43,7 +47,9 @@ commonCss: [
    app: 'http://boilerplate.local',
    page: 'http://boilerplate.local/critical-css-demo.html',
  },
- height: 200,
+ height: 600,
+ width: 1440,
+ keepLargerMediaQueries: true,
 }),
 ```
 
@@ -52,3 +58,5 @@ commonCss: [
 If you use the commonsChunkPlugin with a low minChunks setting you may find all the scss modules in your entry point have been extracted to a commons css file. 
 
 If this is the case the css file that Penthouse would have used to generate the critical.css will not exist so no file will be created. 
+
+Including the commons css file in the commonCss array should resolve this.

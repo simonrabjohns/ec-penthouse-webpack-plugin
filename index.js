@@ -54,6 +54,8 @@ PenthousePlugin.prototype.apply = function (compiler) {
             url: entryUrl,
             cssString: cssString,
             height: self.options.height,
+            width: self.options.width,
+            keepLargerMediaQueries: self.options.keepLargerMediaQueries,
           });
 
           // create a new .critical.css file containing just the critical css for the entry point
