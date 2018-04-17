@@ -9,6 +9,7 @@ function PenthousePlugin(options) {
 PenthousePlugin.prototype.apply = function (compiler) {
 
   const self = this;
+  let cssCommonString = '';
 
   // run after bundle compilation as we need the css bundles to be generated first
   // https://webpack.js.org/api/compiler-hooks/#compilation
@@ -31,7 +32,7 @@ PenthousePlugin.prototype.apply = function (compiler) {
         const cssFile = chunk.files.filter(file => /.(css)$/.test(file)).shift();
 
         // if no css file return
-        if (!compilation.assets[cssFile] || !compilation.assets[cssFile].source()) {
+        if (typeof cssFile !== 'string' || !compilation.assets[cssFile] || !compilation.assets[cssFile].source()) {
           console.log(`${entryUrl} no css for ${cssFile} `);
           return;
         }
@@ -40,10 +41,14 @@ PenthousePlugin.prototype.apply = function (compiler) {
 
           // construct a css string from the common assets passed in the options
 
-          cssCommonString = '';
-          for(let commonCss of self.options.commonCss){
-            cssCommonString += compilation.assets[commonCss].source();
+          if(cssCommonString === ''){
+            for(let commonCss of self.options.commonCss){
+              if(compilation.assets[commonCss]){
+                cssCommonString += compilation.assets[commonCss].source();
+              }
+            }
           }
+
 
           // add generic and reset css content
           const cssString = cssCommonString + compilation.assets[cssFile].source();
